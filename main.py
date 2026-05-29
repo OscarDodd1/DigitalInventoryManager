@@ -8,15 +8,18 @@ class Product:
     def update_stock(self, amount):
         if amount > 0:
             self.quantity += amount
-            print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (+{amount})")
+            print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (${self.quantity * self.price} @ ${self.price} each) (+{amount})")
         elif amount < 0:
-            if (self.quantity - amount) >= 0:
+            if (self.quantity + amount) >= 0:
                 self.quantity += amount
-                print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} ({amount})")
+                print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (${self.quantity * self.price} @ ${self.price} each) ({amount})")
+            else:
+                print("Not enough stock to complete that action")
+                print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (${self.quantity * self.price} @ ${self.price} each)")
         else:
             print("Invalid amount")
-            print(f"{self.name} ({self.product_id}) stock: {self.quantity} ({amount})")
-
+            print(f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (${self.quantity * self.price} @ ${self.price} each)")
+        
     def get_total_value(self):
         totalValue = self.quantity * self.price
 
@@ -24,19 +27,22 @@ class Product:
 
     def __str__(self):
         # TODO: Format output nicely
-        return ""
+        return f"{self.name} (ID: {self.product_id}) stock: {self.quantity} (${self.quantity * self.price} @ ${self.price} each)"
 
 class Inventory:
     def __init__(self):
         self.products = {} # Maps product_id -> Product object
 
     def add_product(self, product):
-        # TODO: Add to dictionary
-        pass
+        newProduct = {"product_id": product.product_id, "name": product.name, "price": product.price, "quantity": product.quantity}
+
+        self.products[f"{product.name}"] = newProduct
 
     def display_all(self):
         # TODO: Iterate and print
         pass
+
+MainInventory = Inventory()
 
 Apple = Product("9123413", "Apple", 0.5, 312)
 
