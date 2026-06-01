@@ -34,18 +34,22 @@ class Inventory:
         self.products = {} # Maps product_id -> Product object
 
     def add_product(self, product):
-        newProduct = {"product_id": product.product_id, "name": product.name, "price": product.price, "quantity": product.quantity}
-
-        self.products[f"{product.name}"] = newProduct
+        self.products[product.product_id] = product
 
     def display_all(self):
-        # TODO: Iterate and print
-        pass
+        for product in self.products.values():
+            print(product)
 
 MainInventory = Inventory()
 
-Apple = Product("9123413", "Apple", 0.5, 312)
+Apple = Product("1", "Apple", 0.5, 312)
+Watermelon = Product("2", "Watermelon", 2.99, 31)
 
 if __name__ == "__main__": # research what __main__ and __name__ actually does!
     # TODO: Write a while loop to interact with user 
     print("Welcome to the Inventory Manager")
+
+    MainInventory.add_product(Apple)
+    MainInventory.add_product(Watermelon)
+
+    MainInventory.display_all()
